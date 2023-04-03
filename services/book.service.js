@@ -1,5 +1,5 @@
-import { text } from '../config/common'
 import BookRepository from '../repository/book.repository'
+import { text } from '../config/common'
 
 export default class BookService {
 	constructor() {

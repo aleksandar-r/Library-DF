@@ -5,26 +5,6 @@ import UserModel from '../models/User'
 export default class JwtUtil {
 	constructor() {}
 
-	_newRefreshToken(username) {
-		return jwt.sign({ username: username }, process.env.REFRESH_TOKEN_SECRET, {
-			expiresIn: auth.refreshTokenExpiry
-		})
-	}
-
-	_newAccessToken(user) {
-		return jwt.sign(
-			{
-				UserInfo: {
-					id: user?._id,
-					username: user?.username,
-					roles: user?.roles
-				}
-			},
-			process.env.ACCESS_TOKEN_SECRET,
-			{ expiresIn: auth.accessTokenExpiry }
-		)
-	}
-
 	verify(refreshToken) {
 		let accessToken
 
@@ -52,5 +32,25 @@ export default class JwtUtil {
 		const refreshToken = this._newRefreshToken(user.username)
 
 		return { accessToken, refreshToken }
+	}
+
+	_newRefreshToken(username) {
+		return jwt.sign({ username: username }, process.env.REFRESH_TOKEN_SECRET, {
+			expiresIn: auth.refreshTokenExpiry
+		})
+	}
+
+	_newAccessToken(user) {
+		return jwt.sign(
+			{
+				UserInfo: {
+					id: user?._id,
+					username: user?.username,
+					roles: user?.roles
+				}
+			},
+			process.env.ACCESS_TOKEN_SECRET,
+			{ expiresIn: auth.accessTokenExpiry }
+		)
 	}
 }

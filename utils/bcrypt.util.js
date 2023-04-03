@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt'
 
 export default class CryptUtil {
 	async hashValue(valueToHash) {
-		// 10 is number of salt rounds, it is default
+		// 10 is default number of salt rounds
 		return await bcrypt.hash(valueToHash, 10)
 	}
 

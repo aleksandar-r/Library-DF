@@ -1,13 +1,13 @@
-import { text } from '../config/common'
-import JwtUtil from '../utils/jwt.util'
-import BcryptUtil from '../utils/bcrypt.util'
 import UserRepository from '../repository/user.repository'
+import BcryptUtil from '../utils/bcrypt.util'
+import JwtUtil from '../utils/jwt.util'
+import { text } from '../config/common'
 
 class AuthenticationService {
 	constructor() {
 		this._jwtUtil = new JwtUtil()
 		this._bcryptUtil = new BcryptUtil()
-		this._userRepo = new UserRepository()
+		this._repository = new UserRepository()
 	}
 
 	// @desc Register
@@ -19,7 +19,7 @@ class AuthenticationService {
 		if (!isBodyComplete) {
 			throw new Error(text.res.allFieldsReq)
 		}
-		const duplicateEmail = await this._userRepo.getByEmail(email)
+		const duplicateEmail = await this._repository.getByEmail(email)
 		if (duplicateEmail) {
 			throw new Error(text.res.emailExists)
 		}
@@ -27,10 +27,10 @@ class AuthenticationService {
 
 		const isRolesInBody = !Array.isArray(roles) || !roles.length
 		const userObject = isRolesInBody
-			? { username, password: hashedPwd, roles: [], email, active: false }
-			: { username, password: hashedPwd, roles, email, active: false }
+			? { username, password: hashedPwd, roles: [], email }
+			: { username, password: hashedPwd, roles, email }
 
-		const createUser = await this._userRepo.create(userObject)
+		const createUser = await this._repository.create(userObject)
 		if (!createUser) {
 			throw new Error(text.res.invalidUserData)
 		}
@@ -48,7 +48,7 @@ class AuthenticationService {
 			throw new Error(text.res.allFieldsReq)
 		}
 
-		const foundUser = await this._userRepo.getByUserName(username)
+		const foundUser = await this._repository.getByUserName(username)
 		const isFoundUserActive = [foundUser, foundUser?.isActive].some(Boolean)
 
 		if (!isFoundUserActive) {

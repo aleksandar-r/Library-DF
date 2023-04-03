@@ -1,8 +1,4 @@
-import { Application } from './app'
-import DBConnection from './config/dbConnection'
-
-const dbConnection = new DBConnection()
-const app = new Application(dbConnection)
+import app from './app'
 
 app.initialize()
-app.startListening()
+app.listen()
