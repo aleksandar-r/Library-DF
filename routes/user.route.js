@@ -7,7 +7,7 @@ import AuthenticationMiddleware from '../middleware/authenticate'
 export default class userRoute {
 	constructor() {
 		this.userRoute = Router()
-		this.userService = new UserService()
+		this.service = new UserService()
 		this.authorize = new AuthorizationMiddleware()
 		this.authentication = new AuthenticationMiddleware()
 	}
@@ -16,36 +16,68 @@ export default class userRoute {
 		this.userRoute.use(this.authentication.verifyJWT)
 
 		// Get all users
-		this.userRoute.get('/all', async (_req, res) => {
-			const users = await this.userService.getAllUsers()
-			res.json(users)
+		this.userRoute.get('/all', async (_req, res, next) => {
+			try {
+				const users = await this.service.getAllUsers()
+				res.json(users)
+			} catch (error) {
+				next(error)
+			}
 		})
 
 		// Get user by id
-		this.userRoute.get('/', async (req, res) => {
-			const user = await this.userService.getUserByID(req.body.id)
-			res.json(user)
+		this.userRoute.get('/', async (req, res, next) => {
+			try {
+				const user = await this.service.getUserByID(req.body.id)
+				res.json(user)
+			} catch (error) {
+				next(error)
+			}
 		})
 
 		// Create user
-		this.userRoute.post('/', this.authorize.isEditor, async (req, res) => {
-			const user = await this.userService.createNewUser(req.body)
-			res
-				.status(status.created)
-				// @ts-ignore
-				.json({ message: text.res.userCreatedFn(user.username) })
-		})
+		this.userRoute.post(
+			'/',
+			this.authorize.isEditor,
+			async (req, res, next) => {
+				try {
+					const user = await this.service.createNewUser(req.body)
+					res
+						.status(status.created)
+						// @ts-ignore
+						.json({ message: text.res.userCreatedFn(user.username) })
+				} catch (error) {
+					next(error)
+				}
+			}
+		)
 
 		// Update user
-		this.userRoute.patch('/', this.authorize.isEditor, async (req, res) => {
-			const updateUserText = await this.userService.updateUser(req.body)
-			res.json({ message: updateUserText })
-		})
+		this.userRoute.patch(
+			'/',
+			this.authorize.isEditor,
+			async (req, res, next) => {
+				try {
+					const updateUserText = await this.service.updateUser(req.body)
+					res.json({ message: updateUserText })
+				} catch (error) {
+					next(error)
+				}
+			}
+		)
 
 		// Delete user
-		this.userRoute.delete('/', this.authorize.isAdmin, async (req, res) => {
-			const deleteUserText = await this.userService.deleteUser(req.body)
-			res.json({ message: deleteUserText })
-		})
+		this.userRoute.delete(
+			'/',
+			this.authorize.isAdmin,
+			async (req, res, next) => {
+				try {
+					const deleteUserText = await this.service.deleteUser(req.body)
+					res.json({ message: deleteUserText })
+				} catch (error) {
+					next(error)
+				}
+			}
+		)
 	}
 }

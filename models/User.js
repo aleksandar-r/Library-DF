@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model, Types } from 'mongoose'
 
 const userSchema = new Schema({
 	username: {
@@ -19,14 +19,16 @@ const userSchema = new Schema({
 	},
 	comment: {
 		type: String,
-		default: true
+		default: 'No comment about this user.'
 	},
 	roles: {
 		type: [String],
 		default: ['User']
 	},
-	favorites: {},
-	borrowed: {}
+	favorites: {
+		type: [{ type: Types.ObjectId, required: true, ref: 'Book' }],
+		default: []
+	}
 })
 
 export default model('User', userSchema)

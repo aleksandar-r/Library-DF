@@ -1,6 +1,6 @@
-import { text } from '../config/common'
 import UserRepository from '../repository/user.repository'
 import BcryptUtil from '../utils/bcrypt.util'
+import { text } from '../config/common'
 
 export default class UserService {
 	constructor() {
@@ -13,7 +13,6 @@ export default class UserService {
 	// @access Private Editor
 	async getAllUsers() {
 		const users = await this.repository.getAllWSelect('-password')
-
 		return users
 	}
 
@@ -22,7 +21,6 @@ export default class UserService {
 	// @access Private Editor
 	async getUserByID(id) {
 		const user = await this.repository.getByIdWSelect(id, '-password')
-
 		return user
 	}
 

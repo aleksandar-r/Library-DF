@@ -1,5 +1,5 @@
-import { text } from '../config/common'
 import CheckoutRepository from '../repository/checkout.repository'
+import { text } from '../config/common'
 
 export default class CheckoutService {
 	constructor() {

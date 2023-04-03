@@ -7,7 +7,7 @@ import AuthenticationMiddleware from '../middleware/authenticate'
 export default class checkoutRoute {
 	constructor() {
 		this.checkoutRoute = Router()
-		this.checkoutService = new CheckoutService()
+		this.service = new CheckoutService()
 		this.authorize = new AuthorizationMiddleware()
 		this.authentication = new AuthenticationMiddleware()
 	}
@@ -19,46 +19,63 @@ export default class checkoutRoute {
 		this.checkoutRoute.get(
 			'/all',
 			this.authorize.isEditor,
-			async (_req, res) => {
-				const checkouts = await this.checkoutService.getAllCheckouts()
-				res.json(checkouts)
+			async (_req, res, next) => {
+				try {
+					const checkouts = await this.service.getAllCheckouts()
+					res.json(checkouts)
+				} catch (error) {
+					next(error)
+				}
 			}
 		)
 
 		// Get logged in users checkouts
-		this.checkoutRoute.get('/mycheckouts', async (req, res) => {
-			const myCheckouts = await this.checkoutService.getLoggedInUserCheckouts(
-				// @ts-ignore
-				req.user.id
-			)
+		this.checkoutRoute.get('/mycheckouts', async (req, res, next) => {
+			try {
+				const myCheckouts = await this.service.getLoggedInUserCheckouts(
+					// @ts-ignore
+					req.user.id
+				)
 
-			res.json(myCheckouts)
+				res.json(myCheckouts)
+			} catch (error) {
+				next(error)
+			}
 		})
 
 		// Get checkout by id
-		this.checkoutRoute.get('/', async (req, res) => {
-			const checkout = await this.checkoutService.getCheckoutById(req.body.id)
-			res.json(checkout)
+		this.checkoutRoute.get('/', async (req, res, next) => {
+			try {
+				const checkout = await this.service.getCheckoutById(req.body.id)
+				res.json(checkout)
+			} catch (error) {
+				next(error)
+			}
 		})
 
 		// Create checkout
-		this.checkoutRoute.post('/', async (req, res) => {
-			const newCheckout = await this.checkoutService.createNewCheckout(
-				// @ts-ignore
-				req.user.id,
-				req.body
-			)
+		this.checkoutRoute.post('/', async (req, res, next) => {
+			try {
+				const newCheckout = await this.service.createNewCheckout(
+					// @ts-ignore
+					req.user.id,
+					req.body
+				)
 
-			res.json(newCheckout)
+				res.json(newCheckout)
+			} catch (error) {
+				next(error)
+			}
 		})
 
 		// Update checkout
-		this.checkoutRoute.patch('/', async (req, res) => {
-			const updatedCheckout = await this.checkoutService.updateCheckout(
-				req.body
-			)
-
-			res.json(updatedCheckout)
+		this.checkoutRoute.patch('/', async (req, res, next) => {
+			try {
+				const updatedCheckout = await this.service.updateCheckout(req.body)
+				res.json(updatedCheckout)
+			} catch (error) {
+				next(error)
+			}
 		})
 	}
 }
