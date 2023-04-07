@@ -13,7 +13,7 @@ class AuthenticationService {
 	// @desc Register
 	// @route POST /auth/register
 	// @access Public
-	async register(username, password, email, roles) {
+	async register(username, password, email) {
 		const isBodyComplete = [username, email, password].every(Boolean)
 
 		if (!isBodyComplete) {
@@ -24,11 +24,7 @@ class AuthenticationService {
 			throw new Error(text.res.emailExists)
 		}
 		const hashedPwd = await this._bcryptUtil.hashValue(password)
-
-		const isRolesInBody = !Array.isArray(roles) || !roles.length
-		const userObject = isRolesInBody
-			? { username, password: hashedPwd, roles: [], email }
-			: { username, password: hashedPwd, roles, email }
+		const userObject = { username, password: hashedPwd, roles: [], email }
 
 		const createUser = await this._repository.create(userObject)
 		if (!createUser) {

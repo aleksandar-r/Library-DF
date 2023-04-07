@@ -1,5 +1,4 @@
 import { Router } from 'express'
-import { status, text } from '../config/common'
 import CheckoutService from '../services/checkout.service'
 import AuthorizationMiddleware from '../middleware/authorize'
 import AuthenticationMiddleware from '../middleware/authenticate'
