@@ -1,5 +1,5 @@
-import { Schema, model } from 'mongoose'
-import reviewSchema from './reviewSchema'
+const { Schema, model } = require('mongoose')
+const reviewSchema = require('./reviewSchema.js')
 
 const userSchema = new Schema({
 	title: {
@@ -32,4 +32,4 @@ const userSchema = new Schema({
 	reviews: [reviewSchema]
 })
 
-export default model('Book', userSchema)
+module.exports = model('Book', userSchema)

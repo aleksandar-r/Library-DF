@@ -1,11 +1,11 @@
-import UserRepository from '../repository/user.repository'
-import BcryptUtil from '../utils/bcrypt.util'
-import { text } from '../config/common'
+const UserRepository = require('../repository/user.repository.js')
+const BcryptUtil = require('../utils/bcrypt.util.js')
+const { text } = require('../config/common/index.js')
 
-export default class UserService {
-	constructor() {
-		this.repository = new UserRepository()
-		this.bcryptUtil = new BcryptUtil()
+class UserService {
+	constructor(repository, encrypt) {
+		this.repository = repository
+		this._encrypt = encrypt
 	}
 
 	// @desc   Get all users
@@ -41,7 +41,7 @@ export default class UserService {
 		}
 
 		// Hash password
-		const hashedPwd = await this.bcryptUtil.hashValue(password)
+		const hashedPwd = await this._encrypt.hashValue(password)
 
 		const userObject = {
 			username,
@@ -92,7 +92,7 @@ export default class UserService {
 		}
 
 		if (password) {
-			updateUser.password = await this.bcryptUtil.hashValue(password)
+			updateUser.password = await this._encrypt.hashValue(password)
 		}
 
 		await this.repository.update(id, user)
@@ -118,3 +118,5 @@ export default class UserService {
 		return text.res.userDeletedFn(result.username, id)
 	}
 }
+
+module.exports = UserService

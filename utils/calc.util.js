@@ -1,4 +1,4 @@
-export default class Calculate {
+class Calculate {
 	constructor() {}
 
 	calculateReviewRating = reviews => {
@@ -8,3 +8,5 @@ export default class Calculate {
 		return sumReviews / reviews?.length
 	}
 }
+
+module.exports = Calculate

@@ -1,10 +1,10 @@
-import { connection } from 'mongoose'
-import express from 'express'
-import path from 'path'
-import { logger, logEvents } from '../../middleware/logger'
-import { status, text } from '../common'
+const express = require('express')
+const path = require('path')
+const { logger, logEvents } = require('../../middleware/logger')
+const { status, text } = require('../common')
+const mongoose = require('mongoose')
 
-export class App {
+class App {
 	constructor(config, dbConnection, middlewares, errorHandlers, router, port) {
 		this.dbConnection = dbConnection
 		this.config = config
@@ -32,7 +32,7 @@ export class App {
 	async listen() {
 		const port = this.port
 
-		connection.once('open', () => {
+		mongoose.connection.once('open', () => {
 			console.log('Connected to MongoDB')
 
 			this.server = this.app.listen(port, () =>
@@ -40,7 +40,7 @@ export class App {
 			)
 		})
 
-		connection.on('error', error => {
+		mongoose.connection.on('error', error => {
 			console.error(error)
 			logEvents(
 				`${error.no} : ${error.code}\t${error.syscall}\t${error.hostname}`,
@@ -83,3 +83,5 @@ export class App {
 		})
 	}
 }
+
+module.exports = App

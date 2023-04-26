@@ -1,9 +1,11 @@
-import ENV from './env'
+const ENV = require('./env.js')
 
-export default class Config {
+class Config {
 	static get env() {
 		return this.env
 	}
 
 	env = new ENV()
 }
+
+module.exports = Config

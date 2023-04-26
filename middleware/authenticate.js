@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken'
-import { text, status } from '../config/common'
+const jwt = require('jsonwebtoken')
+const { text, status } = require('../config/common')
 
 class AuthenticateMiddleware {
 	constructor() {}
@@ -30,4 +30,4 @@ class AuthenticateMiddleware {
 	}
 }
 
-export default AuthenticateMiddleware
+module.exports = AuthenticateMiddleware

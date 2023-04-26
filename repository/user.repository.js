@@ -1,7 +1,7 @@
-import BaseRepository from './base.repository'
-import UserModel from '../models/User'
+const BaseRepository = require('./base.repository.js')
+const UserModel = require('../models/User.js')
 
-export default class UserRepository extends BaseRepository {
+class UserRepository extends BaseRepository {
 	constructor() {
 		super(() => UserModel)
 	}
@@ -26,3 +26,5 @@ export default class UserRepository extends BaseRepository {
 		return await UserModel.findById(id).select(selection).exec()
 	}
 }
+
+module.exports = UserRepository

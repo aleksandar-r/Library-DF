@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose'
+const { Schema, model } = require('mongoose')
 
 const checkoutSchema = new Schema(
 	{
@@ -19,4 +19,4 @@ const checkoutSchema = new Schema(
 	}
 )
 
-export default model('Checkout', checkoutSchema)
+module.exports = model('Checkout', checkoutSchema)

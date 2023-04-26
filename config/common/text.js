@@ -29,4 +29,4 @@ const text = {
 	}
 }
 
-export default text
+module.exports = text

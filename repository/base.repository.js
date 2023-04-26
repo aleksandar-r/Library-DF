@@ -1,4 +1,4 @@
-export default class BaseRepository {
+class BaseRepository {
 	constructor(resolveModelFn) {
 		if (!resolveModelFn) {
 			throw new Error('You must specify which collection you want to query')
@@ -29,3 +29,5 @@ export default class BaseRepository {
 			.lean()
 	}
 }
+
+module.exports = BaseRepository

@@ -1,11 +1,10 @@
-import dotenv from 'dotenv'
-import MissingValueError from '../errors/missingValueError'
-const version = require('../../package.json').version
+const dotenv = require('dotenv')
+const MissingValueError = require('../errors/missingValueError')
 
 const DEVELOPMENT = 'development'
 const TEST = 'test'
 
-export default class ENV {
+class ENV {
 	constructor() {
 		let { parsed, error } = dotenv.config()
 		if (!parsed) throw new Error('.env was not parsed')
@@ -13,15 +12,14 @@ export default class ENV {
 
 		this.env = process.env
 		this._validate(this.env)
-		this.version = version
 	}
 
 	_validate(env) {
 		Object.keys(env).forEach(key => this[key])
 	}
 
-	_value(key, defaultValue = null, cast) {
-		return cast(this.env[key] || defaultValue || this._throwMissingError(key))
+	_value(key, defaultValue = null) {
+		return this.env[key] || defaultValue || this._throwMissingError(key)
 	}
 
 	_throwMissingError(key) {
@@ -34,7 +32,7 @@ export default class ENV {
 
 	get IS_LOCAL() {
 		try {
-			return this._value('IS_LOCAL', false, Boolean)
+			return this._value('IS_LOCAL', false)
 		} catch (err) {
 			return false
 		}
@@ -67,8 +65,6 @@ export default class ENV {
 			return null
 		}
 	}
-
-	get VERSION() {
-		return this.version
-	}
 }
+
+module.exports = ENV

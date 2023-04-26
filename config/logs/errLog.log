@@ -1,0 +1,27 @@
+20230422	14:20:08	27066e96-ca95-41fc-87c9-276958959645	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/register	http://localhost:5173
+20230422	14:23:24	7d41dd3c-a55d-478d-afeb-18cafe10d9dc	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/register	http://localhost:5173
+20230422	14:27:49	ef2b5e8e-0955-40e1-b2d5-a302b8f56df7	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/register	undefined
+20230422	14:29:22	1ac2175f-0664-4c94-8d47-d6c5aab30e4c	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/register	undefined
+20230422	14:30:05	945bf3a7-4ea2-4313-9a0a-861f374e784b	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/register	undefined
+20230422	14:30:21	17d6a67f-df63-4230-bbe3-d41c670cc838	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/register	undefined
+20230422	14:31:51	3976db09-0203-403b-81e5-1c78eeae008f	SyntaxError: Unexpected token } in JSON at position 95	POST	/auth/register	undefined
+20230422	14:32:01	daef1025-1b1a-45fe-b64b-3fa4b7843408	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/register	undefined
+20230422	14:35:36	f40ff10f-f8ba-4d89-b316-faf5dc262f31	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/register	undefined
+20230422	14:38:46	86801971-cd3b-4b81-812f-32afb2a31d51	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/register	http://localhost:5173
+20230422	14:40:04	e970b705-8d75-41c1-9e0b-00b46b57701e	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/register	http://localhost:5173
+20230422	14:46:40	7dc0cb0f-dee9-457f-ba49-1c1b2170a24b	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/register	undefined
+20230422	14:47:33	07eaf6d9-af22-4d3e-b1b7-757240c68149	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/register	undefined
+20230422	14:48:38	d8ded023-beaf-4ecf-bfc0-e476a78c1c39	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/register	undefined
+20230422	14:54:27	7002231b-dc00-4582-a210-f6b9d4725676	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/register	undefined
+20230423	12:19:17	fcf92431-0dee-48a5-9c42-e3d17d7c3844	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/register	http://localhost:5173
+20230423	12:22:11	d90c4c23-97fa-4c36-807f-c7ca2e7264e9	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth	http://localhost:5173
+20230423	12:29:04	c026643f-682b-4a01-9af1-0279dc9f40a9	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth	http://localhost:5173
+20230423	12:30:58	a153a305-990d-4f5a-b013-a4f385965076	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/	undefined
+20230423	12:31:00	8cfa24d1-50f2-4668-840e-6ae20b7c2853	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/	undefined
+20230423	12:32:11	4ef0b33a-e2e5-49bc-a489-fbaa14edc9cc	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/	undefined
+20230423	12:34:05	5dee55a5-20ce-43fd-9785-b54385ca422f	TypeError: Cannot read properties of undefined (reading 'route')	POST	/auth/register	http://localhost:5173
+20230423	12:34:28	55cce346-f388-432d-bcb4-21906267b51a	TypeError: Cannot read properties of undefined (reading 'route')	POST	/auth/register	undefined
+20230423	12:47:52	3cae9b77-d8b8-4a2e-b4ea-57d331b8eab3	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/register	http://localhost:5173
+20230423	12:58:27	74b6a13e-0dec-459d-ac27-15fbe897ef40	TypeError: Cannot read properties of undefined (reading 'get')	GET	/book/all	undefined
+20230423	13:09:33	6875165c-c860-4016-bb49-e3478f92942e	TypeError: Cannot read properties of undefined (reading 'post')	POST	/auth/register	http://localhost:5173
+20230423	13:21:47	fae586e8-1376-490d-8939-c75edb03b247	TypeError: Cannot read properties of undefined (reading 'get')	GET	/book/all	undefined

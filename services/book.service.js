@@ -1,9 +1,8 @@
-import BookRepository from '../repository/book.repository'
-import { text } from '../config/common'
+const { text } = require('../config/common')
 
-export default class BookService {
-	constructor() {
-		this.repository = new BookRepository()
+class BookService {
+	constructor(repository) {
+		this.repository = repository
 	}
 
 	// @desc   GET all books
@@ -103,3 +102,5 @@ export default class BookService {
 		return text.res.bookReviewFn(book.name)
 	}
 }
+
+module.exports = BookService

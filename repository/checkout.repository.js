@@ -1,7 +1,7 @@
-import BaseRepository from './base.repository'
-import CheckoutModel from '../models/Checkout'
+const BaseRepository = require('./base.repository.js')
+const CheckoutModel = require('../models/Checkout.js')
 
-export default class CheckoutRepository extends BaseRepository {
+class CheckoutRepository extends BaseRepository {
 	constructor() {
 		super(() => CheckoutModel)
 	}
@@ -18,3 +18,5 @@ export default class CheckoutRepository extends BaseRepository {
 		return CheckoutModel.find({ user: id })
 	}
 }
+
+module.exports = CheckoutRepository

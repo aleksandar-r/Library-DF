@@ -1,6 +1,6 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
-export default class DBConnection {
+class DBConnection {
 	constructor() {}
 
 	async seedDB(Model, entities) {
@@ -25,3 +25,5 @@ export default class DBConnection {
 		throw new Error('Method not implemented.')
 	}
 }
+
+module.exports = DBConnection

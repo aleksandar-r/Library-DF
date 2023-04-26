@@ -1,9 +1,9 @@
-import CheckoutRepository from '../repository/checkout.repository'
-import { text } from '../config/common'
+const CheckoutRepository = require('../repository/checkout.repository.js')
+const { text } = require('../config/common/index.js')
 
-export default class CheckoutService {
-	constructor() {
-		this.repository = new CheckoutRepository()
+class CheckoutService {
+	constructor(repository) {
+		this.repository = repository
 	}
 
 	// @desc   Get all checkouts
@@ -91,3 +91,5 @@ export default class CheckoutService {
 		return result
 	}
 }
+
+module.exports = CheckoutService

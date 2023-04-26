@@ -1,16 +1,17 @@
-import { Router } from 'express'
-import { status, text } from '../config/common'
-import AuthService from '../services/auth.service'
-import loginLimiter from '../middleware/loginLimiter'
-import cookieOptions from '../config/cookieOptions'
+const express = require('express')
+const { status, text } = require('../config/common/index.js')
+const loginLimiter = require('../middleware/loginLimiter.js')
+const cookieOptions = require('../config/cookieOptions.js')
 
-export default class AuthRoute {
-	constructor() {
-		this.route = Router()
-		this.service = new AuthService()
+class AuthRoute {
+	constructor(service) {
+		this.route = express.Router()
+		this.service = service
+
+		this._initRoutes()
 	}
 
-	initRoutes() {
+	_initRoutes() {
 		// Login
 		this.route.post('/', loginLimiter, async (req, res, next) => {
 			try {
@@ -34,14 +35,13 @@ export default class AuthRoute {
 		// Register
 		this.route.post('/register', async (req, res, next) => {
 			try {
-				const { username, password, email, roles } = req.body
+				const { username, password, email } = req.body
+
 				const { accessToken, refreshToken } = await this.service.register(
 					username,
 					password,
-					email,
-					roles
+					email
 				)
-				console.log(accessToken)
 				// @ts-ignore
 				res.cookie('jwt', refreshToken, cookieOptions)
 				res.status(status.created).json({ accessToken })
@@ -86,3 +86,5 @@ export default class AuthRoute {
 		})
 	}
 }
+
+module.exports = AuthRoute

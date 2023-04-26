@@ -1,13 +1,10 @@
-import UserRepository from '../repository/user.repository'
-import BcryptUtil from '../utils/bcrypt.util'
-import JwtUtil from '../utils/jwt.util'
-import { text } from '../config/common'
+const { text } = require('../config/common/index.js')
 
 class AuthenticationService {
-	constructor() {
-		this._jwtUtil = new JwtUtil()
-		this._bcryptUtil = new BcryptUtil()
-		this._repository = new UserRepository()
+	constructor(token, encrypt, repository) {
+		this._token = token
+		this._encrypt = encrypt
+		this._repository = repository
 	}
 
 	// @desc Register
@@ -23,7 +20,7 @@ class AuthenticationService {
 		if (duplicateEmail) {
 			throw new Error(text.res.emailExists)
 		}
-		const hashedPwd = await this._bcryptUtil.hashValue(password)
+		const hashedPwd = await this._encrypt.hashValue(password)
 		const userObject = { username, password: hashedPwd, roles: [], email }
 
 		const createUser = await this._repository.create(userObject)
@@ -31,36 +28,33 @@ class AuthenticationService {
 			throw new Error(text.res.invalidUserData)
 		}
 
-		const tokens = this._jwtUtil.createTokens(createUser)
+		const tokens = this._token.createTokens(createUser)
 		return tokens
 	}
 
 	// @desc   Login
 	// @route  POST /auth
 	// @access Public
-	async login(username, password) {
-		const confirmData = [username, password].some(Boolean)
+	async login(email, password) {
+		const confirmData = [email, password].some(Boolean)
 		if (!confirmData) {
 			throw new Error(text.res.allFieldsReq)
 		}
 
-		const foundUser = await this._repository.getByUserName(username)
+		const foundUser = await this._repository.getByEmail(email)
 		const isFoundUserActive = [foundUser, foundUser?.isActive].some(Boolean)
 
 		if (!isFoundUserActive) {
 			throw new Error(text.res.unauthorized)
 		}
 
-		const isMatch = await this._bcryptUtil.compare(
-			password,
-			foundUser?.password
-		)
+		const isMatch = await this._encrypt.compare(password, foundUser?.password)
 
 		if (!isMatch) {
 			throw new Error(text.res.unauthorized)
 		}
 
-		const tokens = this._jwtUtil.createTokens(foundUser)
+		const tokens = this._token.createTokens(foundUser)
 		return tokens
 	}
 
@@ -68,8 +62,8 @@ class AuthenticationService {
 	// @route  GET /auth/refresh
 	// @access Public - because access token has expired
 	async refresh(refreshToken) {
-		return this._jwtUtil.verify(refreshToken)
+		return this._token.verify(refreshToken)
 	}
 }
 
-export default AuthenticationService
+module.exports = AuthenticationService

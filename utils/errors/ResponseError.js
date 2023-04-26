@@ -1,6 +1,6 @@
-import { status } from '../../config/common'
+const { status } = require('../../config/common')
 
-export default class ResponseErorr extends Error {
+class ResponseErorr extends Error {
 	constructor(message = '', status = 422, data = {}, code = 0) {
 		super(message)
 		;(this.status = status), (this.data = data), (this.code = code)
@@ -51,3 +51,5 @@ export default class ResponseErorr extends Error {
 		}
 	}
 }
+
+module.exports = ResponseErorr

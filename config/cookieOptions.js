@@ -1,4 +1,4 @@
-import { auth } from './common'
+const { auth } = require('./common/index.js')
 
 const cookieOptions = {
 	httpOnly: true, // accesible only by web browser
@@ -7,4 +7,4 @@ const cookieOptions = {
 	maxAge: auth.cookieMaxAge // cookie expiry
 }
 
-export default cookieOptions
+module.exports = cookieOptions

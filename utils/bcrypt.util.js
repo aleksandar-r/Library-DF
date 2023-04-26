@@ -1,6 +1,6 @@
-import bcrypt from 'bcrypt'
+const bcrypt = require('bcrypt')
 
-export default class CryptUtil {
+class CryptUtil {
 	async hashValue(valueToHash) {
 		// 10 is default number of salt rounds
 		return await bcrypt.hash(valueToHash, 10)
@@ -10,3 +10,5 @@ export default class CryptUtil {
 		return await bcrypt.compare(pwdFromModel, pwdFromClient)
 	}
 }
+
+module.exports = CryptUtil

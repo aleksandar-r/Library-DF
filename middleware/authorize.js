@@ -1,4 +1,4 @@
-import { auth, text, status } from '../config/common'
+const { auth, text, status } = require('../config/common')
 
 class AuthorizationMiddleware {
 	constructor() {}
@@ -32,4 +32,4 @@ class AuthorizationMiddleware {
 	}
 }
 
-export default AuthorizationMiddleware
+module.exports = AuthorizationMiddleware

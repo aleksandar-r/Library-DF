@@ -1,4 +1,4 @@
-export const status = {
+const status = {
 	OK: 200,
 	created: 201,
 	accepted: 202,
@@ -18,4 +18,4 @@ export const status = {
 	intSrvErr: 500
 }
 
-export default status
+module.exports = status

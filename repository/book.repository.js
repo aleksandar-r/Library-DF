@@ -1,11 +1,10 @@
-import BaseRepository from './base.repository'
-import BookModel from '../models/Book'
-import Calculate from '../utils/calc.util'
+const BaseRepository = require('./base.repository')
+const BookModel = require('../models/Book')
 
-export default class BookRepository extends BaseRepository {
-	constructor() {
+class BookRepository extends BaseRepository {
+	constructor(util) {
 		super(() => BookModel)
-		this.util = new Calculate()
+		this.util = util
 	}
 
 	async createNewReview(id, review) {
@@ -19,3 +18,5 @@ export default class BookRepository extends BaseRepository {
 		return await book.save()
 	}
 }
+
+module.exports = BookRepository

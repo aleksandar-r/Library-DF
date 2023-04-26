@@ -1,35 +1,29 @@
-import { Router } from 'express'
-import CheckoutService from '../services/checkout.service'
-import AuthorizationMiddleware from '../middleware/authorize'
-import AuthenticationMiddleware from '../middleware/authenticate'
+const express = require('express')
+class CheckoutRoute {
+	constructor(service, authorize, authentication) {
+		this.route = express.Router()
+		this.service = service
+		this.authorize = authorize
+		this.authentication = authentication
 
-export default class checkoutRoute {
-	constructor() {
-		this.checkoutRoute = Router()
-		this.service = new CheckoutService()
-		this.authorize = new AuthorizationMiddleware()
-		this.authentication = new AuthenticationMiddleware()
+		this._initRoutes()
 	}
 
-	initRoutes() {
-		this.checkoutRoute.use(this.authentication.verifyJWT)
+	_initRoutes() {
+		this.route.use(this.authentication.verifyJWT)
 
 		// Get all checkouts
-		this.checkoutRoute.get(
-			'/all',
-			this.authorize.isEditor,
-			async (_req, res, next) => {
-				try {
-					const checkouts = await this.service.getAllCheckouts()
-					res.json(checkouts)
-				} catch (error) {
-					next(error)
-				}
+		this.route.get('/all', this.authorize.isEditor, async (_req, res, next) => {
+			try {
+				const checkouts = await this.service.getAllCheckouts()
+				res.json(checkouts)
+			} catch (error) {
+				next(error)
 			}
-		)
+		})
 
 		// Get logged in users checkouts
-		this.checkoutRoute.get('/mycheckouts', async (req, res, next) => {
+		this.route.get('/mycheckouts', async (req, res, next) => {
 			try {
 				const myCheckouts = await this.service.getLoggedInUserCheckouts(
 					// @ts-ignore
@@ -43,7 +37,7 @@ export default class checkoutRoute {
 		})
 
 		// Get checkout by id
-		this.checkoutRoute.get('/', async (req, res, next) => {
+		this.route.get('/', async (req, res, next) => {
 			try {
 				const checkout = await this.service.getCheckoutById(req.body.id)
 				res.json(checkout)
@@ -53,7 +47,7 @@ export default class checkoutRoute {
 		})
 
 		// Create checkout
-		this.checkoutRoute.post('/', async (req, res, next) => {
+		this.route.post('/', async (req, res, next) => {
 			try {
 				const newCheckout = await this.service.createNewCheckout(
 					// @ts-ignore
@@ -68,7 +62,7 @@ export default class checkoutRoute {
 		})
 
 		// Update checkout
-		this.checkoutRoute.patch('/', async (req, res, next) => {
+		this.route.patch('/', async (req, res, next) => {
 			try {
 				const updatedCheckout = await this.service.updateCheckout(req.body)
 				res.json(updatedCheckout)
@@ -78,3 +72,5 @@ export default class checkoutRoute {
 		})
 	}
 }
+
+module.exports = CheckoutRoute

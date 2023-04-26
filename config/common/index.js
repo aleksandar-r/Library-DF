@@ -1,3 +1,5 @@
-export { default as auth } from './auth'
-export { default as text } from './text'
-export { default as status } from './status'
+const auth = require('./auth.js')
+const text = require('./text.js')
+const status = require('./status.js')
+
+module.exports = { auth, text, status }

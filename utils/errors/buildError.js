@@ -1,9 +1,9 @@
-import ResponseErorr from './ResponseError'
-import { status } from '../../config/common'
+const ResponseErorr = require('./ResponseError.js')
+const { status } = require('../../config/common/index.js')
 
 const isNotProduction = process.env.NODE_ENV !== 'production'
 
-export const buildError = err => {
+const buildError = err => {
 	if (err instanceof ResponseErorr) return err
 
 	const fetchErrorInfoFunction =
@@ -20,3 +20,5 @@ export const buildError = err => {
 
 	return new ResponseErorr('Something went wrong...', status.intSrvErr)
 }
+
+module.exports = { buildError }

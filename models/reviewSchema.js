@@ -1,9 +1,9 @@
-import mongoose, { Types } from 'mongoose'
+const mongoose = require('mongoose')
 
 const reviewSchema = new mongoose.Schema(
 	{
 		user: {
-			type: Types.ObjectId,
+			type: mongoose.Types.ObjectId,
 			required: true,
 			ref: 'User'
 		},
@@ -25,4 +25,4 @@ const reviewSchema = new mongoose.Schema(
 	}
 )
 
-export default reviewSchema
+module.exports = reviewSchema

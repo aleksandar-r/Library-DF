@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken'
-import { auth, text } from '../config/common'
-import UserModel from '../models/User'
+const jwt = require('jsonwebtoken')
+const { auth, text } = require('../config/common/index.js')
+const UserModel = require('../models/User.js')
 
-export default class JwtUtil {
+class JwtUtil {
 	constructor() {}
 
 	verify(refreshToken) {
@@ -54,3 +54,5 @@ export default class JwtUtil {
 		)
 	}
 }
+
+module.exports = JwtUtil
